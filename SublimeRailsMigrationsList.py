@@ -7,11 +7,14 @@ class RailsMigrationsListCommand(sublime_plugin.WindowCommand):
   migrations = []
   migrations_dir = ''
   def run(self):
+    cur_path = None
     try:
       cur_path = self.window.active_view().file_name()
     except AttributeError:
-      if self.window.folders():
-        cur_path = self.window.folders()[0]
+      pass
+
+    if not cur_path and self.window.folders():
+      cur_path = self.window.folders()[0]
 
     if cur_path:
       if os.path.isfile(cur_path):
